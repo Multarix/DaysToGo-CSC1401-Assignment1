@@ -9,18 +9,19 @@ evnt = input("Enter the name of the event: ");
 day = input("Enter the day of your event, e.g. 1-31: ");
 month = input("Enter the month of your event, e.g. 1-12: ");
 year = input("Please enter the year of your event, e.g. 2022-2100: ");
-# You did say we assume they are valid values; this is gonna crash as soon as I put in feb 30th 2023.
-# This could be easily fixed but you do you I guess
+# Requirement of no checking - We're to assume valid inputs.
+# Easily enough fixed if we wanted to go through the process
 
 
 # Setting up the date and current time values
 timeDate = datetime.datetime(int(year), int(month), int(day)); # wow python, datetime.datetime... that's just.. just wow
 currTime = datetime.datetime.now();
 
+
 # Annnd converting those values to seconds since the epochalypse - And also getting the time difference
 dateSeconds = time.mktime(timeDate.timetuple());
 currSeconds = time.mktime(currTime.timetuple());
-timeDifference = int(dateSeconds) - int(currSeconds);
+timeDifference = int(dateSeconds) - int(currSeconds); # We're not dealing with milliseconds, so converting these to ints is fine
 
 
 # Converting the seconds to minutes, hours days and years
@@ -46,7 +47,6 @@ years = math.floor(daysRAW / 365); 		# We're not converting any higher, so this 
 # We gonna do some array magic here:
 # We will not add any item to the array if its value is 0 (eg `15 days, 0 hours, 23 minutes` should simply display as `15 days, 23 minutes`)
 # Then at the end, we'll join all the items in the array together as a singular string.
-
 timeArray = [];
 timeData = [[years, "year"], [days, "day"], [hours, "hour"], [minutes, "minute"], [seconds, "second"]];
 
@@ -77,11 +77,13 @@ if(len(timeArray) >= 2):
 	del timeArray[-2:];
 	timeArray.append(andItem);
 
-# Join all the wibbly-woblly timey-wimey stuff together
+
+# Join all the wibbly-wobbly timey-wimey stuff together
 seperator = ", ";
 timeString = seperator.join(timeArray);
 date = f"{day}/{month}/{year}";
 timeUntil = f"{evnt} is on {date} ({timeString} later)"; # Later should gramatically be changed to "away"
+
 
 # Galifrey stands! I uh.. I mean we're done.
 print(timeUntil);
